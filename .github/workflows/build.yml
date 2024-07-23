@@ -1,6 +1,6 @@
-name: Docker Image CI
+name: Build workflow
 
-run-name: ${{ github.actor }} is learning GitHub Actions
+run-name: executed by ${{ github.actor }} 
 
 on:
   workflow_dispatch:    
