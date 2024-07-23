@@ -1,12 +1,26 @@
-# To enable ssh & remote debugging on app service change the base image to the one below
-# FROM mcr.microsoft.com/azure-functions/node:4-node18-appservice
-FROM mcr.microsoft.com/azure-functions/node:4-node18
+# Base image
+FROM node:20
 
-ENV AzureWebJobsScriptRoot=/home/site/wwwroot \
-    AzureFunctionsJobHost__Logging__Console__IsEnabled=true
+# Create app directory
+WORKDIR /usr/src/app
 
-COPY . /home/site/wwwroot
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json ./
 
-RUN cd /home/site/wwwroot && \
-    npm install && \
-    npm run build
+# Install app dependencies
+RUN npm install
+
+# Bundle app source
+COPY . .
+
+# Copy the .env and .env.development files
+# COPY .env .env.development ./
+
+# Creates a "dist" folder with the production build
+RUN npm run build
+
+# Expose the port on which the app will run
+EXPOSE 4000
+
+# Start the server using the production build
+CMD ["npm", "run", "start:dev"]
