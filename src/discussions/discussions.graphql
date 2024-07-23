@@ -1,0 +1,61 @@
+type Query {
+  discussions:[Discussion]!
+  discussionByEditor(editor:String!):[Discussion!]!
+  discussionById(id:ID!):Discussion!
+}
+
+type Mutation {
+  createDiscussion(discussion: CreateDiscussionInput): Discussion
+  createDiscussionWithUpload(discussionInput: CreateDiscussionWithUploadInput): Discussion
+  createProfile(profileInput: CreateProfileInput): String
+}
+
+type Subscription {
+  discussionCreated: Discussion
+}
+
+type Discussion {
+  id:Int
+  main:Block
+  children:[Block]
+}
+
+type Block {
+  id: Int
+  text: String!
+  stars:Int
+  approved:Boolean
+  owner:String!
+  videos:[String]
+  images:[String]
+  empty:Boolean
+
+}
+
+input CreateDiscussionInput {
+  discussionId:Int
+  text: String
+  stars:Int
+  approved:Boolean
+  owner:String
+  videos:[String]
+  images:[String]
+}
+
+scalar Upload
+
+input CreateProfileInput {
+  text: String
+  images: [Upload]
+}
+
+
+input CreateDiscussionWithUploadInput {
+  discussionId:Int
+  text: String
+  stars:Int
+  approved:Boolean
+  owner:String
+  videos:[String]
+  images:[Upload]
+}
