@@ -9,22 +9,18 @@ export class AppService {
   }
 
   uploadDir = 'uploads';
-  async uploadFiles(files: Array<Express.Multer.File>): Promise<string> {
+  async uploadFiles(files: Array<Express.Multer.File>): Promise<string[]> {
     const imagePathsPromise = files.map(async (file, index) => {
       const fileName = `${Date.now()}_${index}_${file.originalname}`;
       const uploadDir = join(this.uploadDir, 'images');
-      const filePath = await uploadFileStreamForPost(
-        file.buffer,
-        uploadDir,
-        fileName,
-      );
+      await uploadFileStreamForPost(file.buffer, uploadDir, fileName);
 
-      return filePath;
+      return fileName;
     });
 
-    const imagePaths = await Promise.all(imagePathsPromise);
+    const fileNames = await Promise.all(imagePathsPromise);
 
-    console.log('imagePaths', imagePaths);
-    return 'file upload finished';
+    console.log('fileNames', fileNames);
+    return fileNames;
   }
 }
