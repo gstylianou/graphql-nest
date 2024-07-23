@@ -3,6 +3,7 @@ name: Docker Image CI
 run-name: ${{ github.actor }} is learning GitHub Actions
 
 on:
+  workflow_dispatch:    
   push:
     branches: [ "master" ]
   pull_request:
