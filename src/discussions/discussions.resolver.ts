@@ -1,7 +1,7 @@
 import { ParseIntPipe } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
-import { Discussion, CreateDiscussionInput, CreateDiscussionWithUploadInput } from '../graphql.schema';
+import { Discussion, CreateDiscussionInput } from '../graphql.schema';
 import { DiscussionsService } from './discussions.service';
 import { CreateProfileInput } from './dto/create-profile.input';
 
@@ -13,6 +13,7 @@ export class DiscussionsResolver {
 
   @Query('discussions')
   async getDiscussions() {
+    console.log('discussions is triggered');
     return this.discussionsService.findAll();
   }
 

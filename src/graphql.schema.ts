@@ -91,6 +91,7 @@ export class Block {
     text: string;
     stars?: Nullable<number>;
     approved?: Nullable<boolean>;
+    replyNumber?: Nullable<number>;
     owner: string;
     videos?: Nullable<Nullable<string>[]>;
     images?: Nullable<Nullable<string>[]>;

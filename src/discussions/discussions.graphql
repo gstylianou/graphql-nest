@@ -25,6 +25,7 @@ type Block {
   text: String!
   stars:Int
   approved:Boolean
+  replyNumber: Int
   owner:String!
   videos:[String]
   images:[String]
