@@ -8,6 +8,7 @@ import {
 import { CreateProfileInput } from './dto/create-profile.input';
 import { join } from 'path';
 import { uploadFileStream } from 'src/common/utils/upload';
+import * as _ from 'lodash';
 
 @Injectable()
 export class DiscussionsService {
@@ -20,7 +21,7 @@ export class DiscussionsService {
         stars: 0,
         empty: true,
         replyNumber: 0,
-        approved: false,
+        approved: true,
         owner: 'george',
         images: [],
         videos: [],
@@ -28,6 +29,17 @@ export class DiscussionsService {
       children: [],
     },
   ];
+  private readonly blockInstance: Block = {
+    id: 2,
+    text: '',
+    stars: 0,
+    empty: false,
+    replyNumber: 0,
+    approved: true,
+    owner: 'george',
+    images: [],
+    videos: [],
+  };
   // {
   //   id: 1,
   //   main: { id: 1, text: 'Request #1', owner: 'George', images: ['abcd'], videos: ['xyz'] },
@@ -89,18 +101,28 @@ export class DiscussionsService {
   // ];
 
   createDiscussion(discussion: CreateDiscussionInput): Discussion {
+
+    console.log('CreateDiscussionInput', CreateDiscussionInput);
+
     const discussionFound = this.discussions.find(
       (x) => x.id == discussion.discussionId,
     );
+    console.log('discussionFound', discussionFound);
+
     if (discussionFound != null) {
-      if (discussionFound.main.empty == false) {
+      if (discussionFound.main.empty == true) {
         discussionFound.main.text = discussion.text;
+        discussionFound.main.empty = false;
+        discussionFound.main.stars = 0;
         return discussionFound;
       } else {
-        const newEntry = new Block();
+        console.log('blockInstance', this.blockInstance);
+        const newEntry = _.cloneDeep(this.blockInstance);
         newEntry.id = discussionFound.children.length + 1;
         newEntry.text = discussion.text;
+        newEntry.stars = 0;
         discussionFound.children.push(newEntry);
+        console.log('returning discussionFound', discussionFound);
         return discussionFound;
       }
     } else {

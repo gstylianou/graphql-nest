@@ -35,6 +35,7 @@ export class DiscussionsResolver {
     pubSub.publish('discussionCreated', {
       discussionCreated: createdDiscussion,
     });
+    console.log('returning discussion after update', createdDiscussion);
     return createdDiscussion;
   }
 
