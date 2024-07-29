@@ -25,6 +25,7 @@ export class DiscussionsService {
         owner: 'george',
         images: [],
         videos: [],
+        files: [],
       },
       children: [],
     },
@@ -39,7 +40,9 @@ export class DiscussionsService {
     owner: 'george',
     images: [],
     videos: [],
+    files: [],
   };
+
   // {
   //   id: 1,
   //   main: { id: 1, text: 'Request #1', owner: 'George', images: ['abcd'], videos: ['xyz'] },
@@ -101,19 +104,21 @@ export class DiscussionsService {
   // ];
 
   createDiscussion(discussion: CreateDiscussionInput): Discussion {
-
     console.log('CreateDiscussionInput', CreateDiscussionInput);
 
     const discussionFound = this.discussions.find(
       (x) => x.id == discussion.discussionId,
     );
     console.log('discussionFound', discussionFound);
-
+    const prefix = 'http://localhost:4000/uploads/tmp/';
+    const resources = discussion.files.map((x) => prefix + x);
     if (discussionFound != null) {
       if (discussionFound.main.empty == true) {
+        console.log('resources', resources, discussion.files);
         discussionFound.main.text = discussion.text;
         discussionFound.main.empty = false;
         discussionFound.main.stars = 0;
+        discussionFound.main.videos = resources;
         return discussionFound;
       } else {
         console.log('blockInstance', this.blockInstance);
@@ -121,6 +126,7 @@ export class DiscussionsService {
         newEntry.id = discussionFound.children.length + 1;
         newEntry.text = discussion.text;
         newEntry.stars = 0;
+        newEntry.videos = resources;
         discussionFound.children.push(newEntry);
         console.log('returning discussionFound', discussionFound);
         return discussionFound;

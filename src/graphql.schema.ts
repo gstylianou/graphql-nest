@@ -21,6 +21,7 @@ export class CreateDiscussionInput {
     owner?: Nullable<string>;
     videos?: Nullable<Nullable<string>[]>;
     images?: Nullable<Nullable<string>[]>;
+    files?: Nullable<Nullable<string>[]>;
 }
 
 export class CreateProfileInput {
@@ -95,6 +96,7 @@ export class Block {
     owner: string;
     videos?: Nullable<Nullable<string>[]>;
     images?: Nullable<Nullable<string>[]>;
+    files?: Nullable<Nullable<string>[]>;
     empty?: Nullable<boolean>;
 }
 

@@ -29,6 +29,7 @@ type Block {
   owner:String!
   videos:[String]
   images:[String]
+  files:[String]
   empty:Boolean
 
 }
@@ -41,6 +42,7 @@ input CreateDiscussionInput {
   owner:String
   videos:[String]
   images:[String]
+  files:[String]
 }
 
 scalar Upload

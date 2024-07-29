@@ -29,7 +29,7 @@ export class DiscussionsResolver {
   async createDiscussion(
     @Args('discussion') args: CreateDiscussionInput,
   ): Promise<Discussion> {
-    console.log('createDiscussion', args);
+    console.log('createDiscussion', JSON.stringify(args));
     const createdDiscussion =
       await this.discussionsService.createDiscussion(args);
     pubSub.publish('discussionCreated', {
