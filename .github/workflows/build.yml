@@ -1,6 +1,6 @@
 name: Build workflow
 
-run-name: executed by ${{ github.actor }} 
+# run-name: executed by ${{ github.actor }} 
 
 on:
   workflow_dispatch:    
@@ -54,7 +54,7 @@ jobs:
           
 
   deploy_to_container_apps:
-    # needs: build_docker_image
+    needs: build_docker_image
     runs-on: ubuntu-latest
 
     steps:
@@ -72,7 +72,7 @@ jobs:
           containerAppName: backend-graphql
           resourceGroup: frontend-react-rg
           containerAppEnvironment: frontend-react-env
-          imageToDeploy: ermis.azurecr.io/react_frontend:latest
+          imageToDeploy: ermis.azurecr.io/graphql_nest:latest
           disableTelemetry: true    
           targetPort: 80        
           ingress: external
