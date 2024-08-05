@@ -4,14 +4,15 @@ FROM node:20
 # Create app directory
 WORKDIR /usr/src/app
 
+
+# Bundle app source
+COPY . .
+
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
 
 # Install app dependencies
 RUN npm install
-
-# Bundle app source
-COPY . .
 
 # Copy the .env and .env.development files
 # COPY .env .env.development ./
