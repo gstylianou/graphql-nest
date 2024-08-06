@@ -70,8 +70,8 @@ jobs:
           acrUsername: ${{ secrets.AZURE_CLIENT_ID }}
           acrPassword: ${{ secrets.AZURE_CLIENT_SECRET }}
           containerAppName: backend-graphql
-          resourceGroup: frontend-react-rg
-          containerAppEnvironment: frontend-react-env
+          resourceGroup: ermis
+          containerAppEnvironment: apps-env
           imageToDeploy: ermis.azurecr.io/graphql_nest:latest
           disableTelemetry: true    
           targetPort: 80        
