@@ -110,8 +110,11 @@ export class DiscussionsService {
       (x) => x.id == discussion.discussionId,
     );
     console.log('discussionFound', discussionFound);
-    const prefix = 'http://localhost:4000/uploads/tmp/';
-    const resources = discussion.files.map((x) => prefix + x);
+    const prefix = process.env.DEV_URL+'/uploads/tmp/';
+    console.log('prefix', prefix);
+    let resources = []
+    if(discussion.files!=null)
+      resources = discussion.files.map((x) => prefix + x);
     if (discussionFound != null) {
       if (discussionFound.main.empty == true) {
         console.log('resources', resources, discussion.files);

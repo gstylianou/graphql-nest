@@ -8,10 +8,13 @@ import { upperDirectiveTransformer } from './common/directives/upper-case.direct
 import { join } from 'path';
 import { DiscussionsModule } from './discussions/discussions.module';
 import { GraphQLUpload } from 'graphql-upload-ts';
-
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+                          isGlobal: true,
+                        }),
     CatsModule,
     DiscussionsModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
